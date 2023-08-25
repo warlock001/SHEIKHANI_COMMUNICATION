@@ -40,7 +40,8 @@ export const styles = StyleSheet.create({
 	chatscreen: {
 		backgroundColor: "#F7F7F7",
 		flex: 1,
-		padding: 10,
+		padding: 24,
+		paddingTop: 50,
 		position: "relative",
 	},
 	chatheading: {
@@ -184,4 +185,13 @@ export const styles = StyleSheet.create({
 	ctime: {
 		opacity: 0.5,
 	},
+	pageHeading: {
+		fontSize: 23,
+		fontWeight: '700',
+	},
+	pageSubHeading: {
+		fontSize: 16,
+		color: '#1F1F1F88',
+		marginTop: 8
+	}
 });

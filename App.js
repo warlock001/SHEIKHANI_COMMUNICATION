@@ -28,6 +28,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //👇🏻 React libraries
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './utils/styles';
+import Home from './screens/Home';
 
 
 
@@ -166,8 +167,8 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
-				<Tab.Screen name="Workspace" component={Login} />
+			<Tab.Navigator screenOptions={{ headerShown: false }} tabBar={(props) => <MyTabBar {...props} />}>
+				<Tab.Screen name="Workspace" component={Home} />
 				<Tab.Screen name="Groups" component={Chat} />
 				<Tab.Screen name="Chats" component={Chat} />
 				<Tab.Screen name="My Account" component={Chat} />
