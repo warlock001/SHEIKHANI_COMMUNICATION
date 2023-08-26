@@ -9,11 +9,12 @@ import {
     KeyboardAvoidingView,
     TouchableOpacity,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-paper';
 import TextField from '../component/inputField';
 import axios from 'axios';
 import EnvelopeClosed from '../images/EnvelopeClosed.png'
+import { CommonActions } from '@react-navigation/native';
 //import { REACT_APP_BASE_URL } from '@env';
 const REACT_APP_BASE_URL = "http://192.168.0.103:3001";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,6 +25,9 @@ export default function SignIn({ navigation }) {
     const [password, setPassword] = useState(null);
     const [loader, setLoader] = useState(false);
     const [showPassword, setShowPassword] = useState(true)
+
+
+
 
     getMyStringValue = async () => {
         try {
@@ -71,6 +75,7 @@ export default function SignIn({ navigation }) {
                 await AsyncStorage.setItem('@id', res.data._id);
                 await AsyncStorage.setItem('@jwt', res.data.token);
                 await AsyncStorage.setItem('@role', res.data.role);
+                await AsyncStorage.setItem('@department', res.data.department);
                 await AsyncStorage.setItem('@username', res.data.firstName);
                 const value = await AsyncStorage.getItem("@username");
                 console.log(value)
@@ -78,7 +83,7 @@ export default function SignIn({ navigation }) {
                 // console.log(res.data.firstName)
                 setLoader(false)
                 if (res.data.role == 'employee') {
-                    navigation.navigate('Chat');
+                    navigation.navigate('Home');
                 } else {
                     navigation.navigate('RescueCenter');
                 }

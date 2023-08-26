@@ -64,7 +64,8 @@ export const styles = StyleSheet.create({
 		justifyContent: "space-between",
 	},
 	chatlistContainer: {
-		paddingHorizontal: 10,
+		paddingHorizontal: 0,
+		marginTop: 16,
 	},
 	chatemptyContainer: {
 		width: "100%",
@@ -193,5 +194,9 @@ export const styles = StyleSheet.create({
 		fontSize: 16,
 		color: '#1F1F1F88',
 		marginTop: 8
+	},
+	optionBox: {
+		marginTop: 33
 	}
+
 });

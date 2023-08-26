@@ -22,7 +22,7 @@ import {
 	NavigationContainer,
 	useFocusEffect,
 } from '@react-navigation/native';
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 //👇🏻 React libraries
@@ -36,8 +36,94 @@ import Home from './screens/Home';
 
 
 
-// const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+
+function MyTabBar({ state, descriptors, navigation }) {
+	console.log(descriptors)
+	return (
+		<View style={{ flexDirection: 'row', height: 70, alignItems: 'center', justifyContent: 'space-evenly' }}>
+			{state.routes.map((route, index) => {
+				const { options } = descriptors[route.key];
+				const label =
+					options.tabBarLabel !== undefined
+						? options.tabBarLabel
+						: options.title !== undefined
+							? options.title
+							: route.name;
+
+				const isFocused = state.index === index;
+
+				const onPress = () => {
+					const event = navigation.emit({
+						type: 'tabPress',
+						target: route.key,
+					});
+
+					if (!isFocused && !event.defaultPrevented) {
+						navigation.navigate(route.name);
+					}
+				};
+
+				const onLongPress = () => {
+					navigation.emit({
+						type: 'tabLongPress',
+						target: route.key,
+					});
+				};
+
+				return (
+					<TouchableOpacity
+						accessibilityRole="button"
+						accessibilityState={isFocused ? { selected: true } : {}}
+						accessibilityLabel={options.tabBarAccessibilityLabel}
+						testID={options.tabBarTestID}
+						onPress={onPress}
+						onLongPress={onLongPress}
+						style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}
+					>
+						{isFocused ?
+							<Image resizeMode="contain"
+								style={{ width: 25 }}
+								source={
+
+									label == 'Workspace' ? require('./images/workspace.png')
+										: label == 'Groups' ? require('./images/groups.png')
+											: label == 'Chats' ? require('./images/chats.png')
+												: require('./images/myaccount.png')
+
+								} /> : <Image resizeMode="contain"
+									style={{ width: 25 }}
+									source={
+
+										label == 'Workspace' ? require('./images/workspace_inactive.png')
+											: label == 'Groups' ? require('./images/groups_inactive.png')
+												: label == 'Chats' ? require('./images/chats_inactive.png')
+													: require('./images/myaccount_inactive.png')
+
+									} />}
+						<Text style={[style.bottonTabText, { color: isFocused ? '#003A9A' : '#222' }]}>
+							{label}
+						</Text>
+					</TouchableOpacity>
+				);
+			})}
+		</View>
+	);
+}
+
+
+function HomeTabs() {
+	return (
+		<Tab.Navigator screenOptions={{ headerShown: false }} tabBar={(props) => <MyTabBar {...props} />}>
+			<Tab.Screen name="Workspace" component={Home} />
+			<Tab.Screen name="Groups" component={Chat} />
+			<Tab.Screen name="Chats" component={Chat} />
+			<Tab.Screen name="My Account" component={Chat} />
+		</Tab.Navigator>
+	);
+}
 
 export default function App() {
 
@@ -92,89 +178,22 @@ export default function App() {
 
 	}
 
-	function MyTabBar({ state, descriptors, navigation }) {
-		console.log(descriptors)
-		return (
-			<View style={{ flexDirection: 'row', height: 70, alignItems: 'center', justifyContent: 'space-evenly' }}>
-				{state.routes.map((route, index) => {
-					const { options } = descriptors[route.key];
-					const label =
-						options.tabBarLabel !== undefined
-							? options.tabBarLabel
-							: options.title !== undefined
-								? options.title
-								: route.name;
 
-					const isFocused = state.index === index;
-
-					const onPress = () => {
-						const event = navigation.emit({
-							type: 'tabPress',
-							target: route.key,
-						});
-
-						if (!isFocused && !event.defaultPrevented) {
-							navigation.navigate(route.name);
-						}
-					};
-
-					const onLongPress = () => {
-						navigation.emit({
-							type: 'tabLongPress',
-							target: route.key,
-						});
-					};
-
-					return (
-						<TouchableOpacity
-							accessibilityRole="button"
-							accessibilityState={isFocused ? { selected: true } : {}}
-							accessibilityLabel={options.tabBarAccessibilityLabel}
-							testID={options.tabBarTestID}
-							onPress={onPress}
-							onLongPress={onLongPress}
-							style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}
-						>
-							{isFocused ?
-								<Image resizeMode="contain"
-									style={{ width: 25 }}
-									source={
-
-										label == 'Workspace' ? require('./images/workspace.png')
-											: label == 'Groups' ? require('./images/groups.png')
-												: label == 'Chats' ? require('./images/chats.png')
-													: require('./images/myaccount.png')
-
-									} /> : <Image resizeMode="contain"
-										style={{ width: 25 }}
-										source={
-
-											label == 'Workspace' ? require('./images/workspace_inactive.png')
-												: label == 'Groups' ? require('./images/groups_inactive.png')
-													: label == 'Chats' ? require('./images/chats_inactive.png')
-														: require('./images/myaccount_inactive.png')
-
-										} />}
-							<Text style={[style.bottonTabText, { color: isFocused ? '#003A9A' : '#222' }]}>
-								{label}
-							</Text>
-						</TouchableOpacity>
-					);
-				})}
-			</View>
-		);
-	}
 
 	return (
+
+
 		<NavigationContainer>
-			<Tab.Navigator screenOptions={{ headerShown: false }} tabBar={(props) => <MyTabBar {...props} />}>
-				<Tab.Screen name="Workspace" component={Home} />
-				<Tab.Screen name="Groups" component={Chat} />
-				<Tab.Screen name="Chats" component={Chat} />
-				<Tab.Screen name="My Account" component={Chat} />
-			</Tab.Navigator>
+			<Stack.Navigator screenOptions={{ headerShown: false }}>
+				<Stack.Screen name="Login" component={Login} />
+				<Stack.Screen name="Home" component={HomeTabs} />
+			</Stack.Navigator>
 		</NavigationContainer>
 	);
+
+
+
+
 }
 
 const style = StyleSheet.create({
