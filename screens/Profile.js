@@ -48,34 +48,29 @@ const Profile = () => {
 
   getUsername();
 
-  // useLayoutEffect(() => {
-  // 	function fetchGroups() {
-  // 		fetch("http://192.168.0.103:4000/api")
-  // 			.then((res) => res.json())
-  // 			.then((data) => setRooms(data))
-  // 			.catch((err) => console.error(err));
-  // 	}
-  // 	fetchGroups();
-  // }, []);
-
-  // useEffect(() => {
-  // 	socket.on("roomsList", (rooms) => {
-  // 		setRooms(rooms);
-  // 	});
-  // }, [socket]);
-
-  // const handleCreateGroup = () => setVisible(true);
-
   return (
-    <SafeAreaView style={styles.profileScreen}>
-      <View style={styles.profileBackground}>
+    <SafeAreaView
+      style={{
+        backgroundColor: "#FFF",
+        flex: 1,
+        // padding: 10,
+        position: "relative",
+      }}
+    >
+      <View
+        style={{
+          zIndex: -1,
+          height: "35%",
+          backgroundColor: "#1f2067",
+        }}
+      >
         <View
           style={{
             width: "100%",
             alignItems: "center",
           }}
         >
-          <View
+          {/* <View
             style={{
               position: "absolute",
               top: -90,
@@ -89,22 +84,22 @@ const Profile = () => {
               }}
               source={require("../images/sheikhani-logo.png")}
             />
-          </View>
+          </View> */}
           <View
             style={{
               width: "33%",
-              height: 150,
+              height: "23%",
               marginTop: 150,
             }}
           >
             <Image
-              resizeMode="contain"
+              resizeMode="cover"
               style={{
                 width: "100%",
                 height: "100%",
                 borderRadius: 100,
               }}
-              source={require("../images/profiledemo.jpg")}
+              source={require("../images/bxs_camera.png")}
             />
             <Pressable //
               style={{
@@ -132,7 +127,7 @@ const Profile = () => {
               fontSize: 23,
             }}
           >
-            {profileUsername}
+            Bruce Willis
           </Text>
           <Text style={{ fontSize: 16, marginBottom: 45, color: "#8F8F8F" }}>
             brucenelson@yourcompany.com
@@ -172,6 +167,42 @@ const Profile = () => {
               source={require("../images/chevron_right.png")}
             />
           </View>
+          {/* To uncomment when we build the Announcements section */}
+          {/* <View
+            style={{
+              flexDirection: "row",
+              width: "80%",
+              //   paddingHorizontal: "21%",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingVertical: 14,
+              flexDirection: "row",
+              //   backgroundColor: "#FAE6E7",
+              borderRadius: 5,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+              }}
+            >
+              <Image
+                resizeMode="contain"
+                style={{ width: 23, height: 23, marginLeft: 7 }}
+                source={require("../images/bookmark.png")}
+              />
+              <Text
+                style={{ fontSize: 16, marginLeft: 10, textAlign: "center" }}
+              >
+                Company Announcements
+              </Text>
+            </View>
+            <Image
+              resizeMode="contain"
+              style={{ width: 25, height: 25, marginRight: 5 }}
+              source={require("../images/chevron_right.png")}
+            />
+          </View> */}
           <Pressable onPress={handleLogout}>
             <View
               style={{
@@ -180,7 +211,7 @@ const Profile = () => {
                 alignItems: "center",
                 paddingVertical: 14,
                 flexDirection: "row",
-                marginTop: "40%",
+                marginTop: "30%",
                 backgroundColor: "#FAE6E7",
                 borderRadius: 5,
               }}
