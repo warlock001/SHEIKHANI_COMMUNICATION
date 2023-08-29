@@ -4,36 +4,79 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../utils/styles";
 
 export default function MessageComponent({ item, user }) {
-	const status = item.user !== user;
+  const status = item.user !== user;
 
-	return (
-		<View>
-			<View
-				style={
-					status
-						? styles.mmessageWrapper
-						: [styles.mmessageWrapper, { alignItems: "flex-end" }]
-				}
-			>
-				<View style={{ flexDirection: "row", alignItems: "center" }}>
-					<Ionicons
-						name='person-circle-outline'
-						size={30}
-						color='black'
-						style={styles.mavatar}
-					/>
-					<View
-						style={
-							status
-								? styles.mmessage
-								: [styles.mmessage, { backgroundColor: "rgb(194, 243, 194)" }]
-						}
-					>
-						<Text>{item.text}</Text>
-					</View>
-				</View>
-				<Text style={{ marginLeft: 40 }}>{item.time}</Text>
-			</View>
-		</View>
-	);
+  return (
+    <View>
+      <View
+        style={
+          status
+            ? styles.mmessageWrapper
+            : [styles.mmessageWrapper, { alignItems: "flex-end" }]
+        }
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          {status ? (
+            <Ionicons
+              name="person-circle-outline"
+              size={30}
+              color="black"
+              style={styles.mavatar}
+            />
+          ) : (
+            ""
+          )}
+
+          <View
+            style={
+              status
+                ? styles.mmessage
+                : [styles.mmessage, { backgroundColor: "#1F2067" }]
+            }
+          >
+            <Text style={status ? [{ color: "#000" }] : [{ color: "#FFF" }]}>
+              {item.text}
+            </Text>
+            <Text
+              style={
+                status
+                  ? [
+                      {
+                        position: "absolute",
+                        bottom: 0,
+                        right: 7,
+                        fontSize: 10,
+                        fontWeight: "400",
+                        color: "#1F2067",
+                      },
+                    ]
+                  : [
+                      {
+                        position: "absolute",
+                        bottom: 0,
+                        right: 7,
+                        fontSize: 10,
+                        fontWeight: "400",
+                        color: "#fff",
+                      },
+                    ]
+              }
+            >
+              {item.time}
+            </Text>
+          </View>
+          {status ? (
+            ""
+          ) : (
+            <Ionicons
+              name="person-circle-outline"
+              size={30}
+              color="black"
+              style={styles.mavatar}
+            />
+          )}
+        </View>
+      </View>
+    </View>
+  );
 }
