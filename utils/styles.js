@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
 		backgroundColor: "#F7F7F7",
 		flex: 1,
 		padding: 24,
-		paddingTop: 50,
+		paddingTop: 25,
 		position: "relative",
 	},
 	chatheading: {

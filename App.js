@@ -117,10 +117,10 @@ function MyTabBar({ state, descriptors, navigation }) {
 function HomeTabs() {
 	return (
 		<Tab.Navigator screenOptions={{ headerShown: false }} tabBar={(props) => <MyTabBar {...props} />}>
-			<Tab.Screen name="Workspace" component={Home} />
-			<Tab.Screen name="Groups" component={Chat} />
+			<Tab.Screen name="Workspace" component={OnBoarding} />
+			{/* <Tab.Screen name="Groups" component={Chat} /> */}
 			<Tab.Screen name="Chats" component={Chat} />
-			<Tab.Screen name="My Account" component={Chat} />
+			{/* <Tab.Screen name="My Account" component={Chat} /> */}
 		</Tab.Navigator>
 	);
 }
@@ -184,9 +184,11 @@ export default function App() {
 
 
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false }}>
+			<Stack.Navigator >
+				<Stack.Screen name="OnBoarding" component={OnBoarding} />
 				<Stack.Screen name="Login" component={Login} />
 				<Stack.Screen name="Home" component={HomeTabs} />
+				<Stack.Screen name="Messaging" component={Messaging} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

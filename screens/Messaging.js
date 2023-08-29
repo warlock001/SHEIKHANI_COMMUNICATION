@@ -22,7 +22,7 @@ const Messaging = ({ route, navigation }) => {
 		} catch (e) {
 			console.error("Error while loading username!");
 		}
-		console.log("Aryans")
+
 	};
 
 	const handleNewMessage = () => {
@@ -44,19 +44,60 @@ const Messaging = ({ route, navigation }) => {
 				timestamp: { hour, mins },
 			});
 		} else {
-			console.log("first")
+			// console.log("first")
 		}
 	};
 
 	useLayoutEffect(() => {
-		navigation.setOptions({ title: name });
-		getUsername();
-		socket.emit("findRoom", id);
-		socket.on("foundRoom", (roomChats) => setChatMessages(roomChats));
+
+		async function findRoom() {
+			navigation.setOptions({ title: name });
+			getUsername();
+			const sender = await AsyncStorage.getItem("@username");
+			let roomMessages = await AsyncStorage.getItem('@roomMessages');
+			roomMessages = JSON.parse(roomMessages)
+			let data = {
+				id: id,
+				name: name,
+				sender: sender,
+				roomMessages: roomMessages
+			}
+
+			socket.emit("findRoom", data);
+			socket.on("foundRoom", async (roomChats) => {
+				if (roomChats.length !== 0) {
+					setChatMessages(roomChats)
+					await AsyncStorage.setItem('@roomMessages', JSON.stringify(roomChats));
+					// console.log("four")
+				} else {
+					// console.log("five")
+					let roomMessages = await AsyncStorage.getItem('@roomMessages');
+					roomMessages = JSON.parse(roomMessages)
+					// console.log(roomMessages)
+					setChatMessages(roomMessages ? roomMessages : [])
+				}
+
+
+			});
+		}
+		findRoom()
 	}, []);
 
 	useEffect(() => {
-		socket.on("foundRoom", (roomChats) => setChatMessages(roomChats));
+		socket.on("foundRoom", async (roomChats) => {
+			if (roomChats.length !== 0) {
+				// console.log("first")
+				setChatMessages(roomChats)
+				await AsyncStorage.setItem('@roomMessages', JSON.stringify(roomChats));
+			} else {
+
+				let roomMessages = await AsyncStorage.getItem('@roomMessages');
+				roomMessages = JSON.parse(roomMessages)
+				// console.log("roomMessages : " + roomMessages)
+				setChatMessages(roomMessages ? roomMessages : [])
+			}
+
+		});
 	}, [socket]);
 
 	return (

@@ -3,13 +3,20 @@ import React, { useLayoutEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../utils/styles";
-
-const ChatComponent = ({ item }) => {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+const ChatComponent = ({ item, username }) => {
 	const navigation = useNavigation();
 	const [messages, setMessages] = useState({});
+	console.log("item : " + JSON.stringify(item))
 
 	useLayoutEffect(() => {
 		setMessages(item.messages[item.messages.length - 1]);
+		console.log("item : " + JSON.stringify(item))
+		async function getUserName() {
+
+		}
+		getUserName()
+
 	}, []);
 
 	const handleNavigation = () => {
@@ -19,8 +26,8 @@ const ChatComponent = ({ item }) => {
 		});
 	};
 
-	return (
-		<Pressable style={styles.cchat} onPress={handleNavigation}>
+	return ((username == item.name || username == item.sender) ?
+		< Pressable style={styles.cchat} onPress={handleNavigation} >
 			<Ionicons
 				name='person-circle-outline'
 				size={45}
@@ -30,7 +37,7 @@ const ChatComponent = ({ item }) => {
 
 			<View style={styles.crightContainer}>
 				<View>
-					<Text style={styles.cusername}>{item.name}</Text>
+					<Text style={styles.cusername}>{item.name == username ? item.sender : item.name}</Text>
 
 					<Text style={styles.cmessage}>
 						{messages?.text ? messages.text : "Tap to start chatting"}
@@ -42,7 +49,7 @@ const ChatComponent = ({ item }) => {
 					</Text>
 				</View>
 			</View>
-		</Pressable>
+		</Pressable > : ''
 	);
 };
 
