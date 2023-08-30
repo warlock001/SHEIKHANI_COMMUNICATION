@@ -128,7 +128,7 @@ const Messaging = ({ route, navigation }) => {
             )}
             keyExtractor={(item) => item.id}
             onContentSizeChange={() =>
-              flatlistRef.scrollToEnd({ animated: true })
+              flatlistRef.scrollToEnd({ animated: false })
             }
           />
         ) : (

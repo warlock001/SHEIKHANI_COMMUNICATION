@@ -31,6 +31,8 @@ import { styles } from "./utils/styles";
 import Home from "./screens/Home";
 import Profile from "./screens/AccountSettings";
 import Announcements from "./screens/Announcements";
+import { SplashScreen } from "expo-splash-screen";
+import SplashScreenComponent from "./component/SplashScreenComponent";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -146,6 +148,7 @@ function HomeTabs() {
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(false);
+  const [appInit, setAppInit] = useState(false); // Initialize appInit state
 
   useEffect(() => {
     func = async () => {
@@ -161,6 +164,22 @@ export default function App() {
     };
     func();
   }, []);
+
+  useEffect(() => {
+    async function prepareApp() {
+      if (appInit) {
+        // Prevent the splash screen from automatically hiding
+        await SplashScreen.preventAutoHideAsync();
+
+        // Simulate some loading time before displaying the main app
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 seconds
+
+        // Hide the splash screen and display the main app
+        SplashScreen.hideAsync();
+      }
+    }
+    prepareApp();
+  }, [appInit]); // Run this effect when appInit changes
 
   function HomeStack({ route, navigation }) {
     const { shouldRedirect, UserRole } = route.params;
@@ -192,16 +211,31 @@ export default function App() {
     }, [shouldRedirect]);
   }
 
+  const [appReady, setAppReady] = useState(false);
+
+  const handleSplashEnd = () => {
+    setAppReady(true);
+  };
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="OnBoarding" component={OnBoarding} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={HomeTabs} />
-        <Stack.Screen name="Messaging" component={Messaging} />
-        <Stack.Screen name="Announcements" component={Announcements} />
-        <Stack.Screen name="AccountSettings" component={AccountSettings} />
-      </Stack.Navigator>
+      {appReady ? (
+        <Stack.Navigator>
+          <Stack.Screen name="OnBoarding" component={OnBoarding} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={HomeTabs} />
+          <Stack.Screen name="Messaging" component={Messaging} />
+          <Stack.Screen name="Announcements" component={Announcements} />
+          <Stack.Screen name="AccountSettings" component={AccountSettings} />
+        </Stack.Navigator>
+      ) : (
+        <SplashScreenComponent
+          name="Splash"
+          component={SplashScreenComponent}
+          options={{ headerShown: false }}
+          onSplashEnd={handleSplashEnd}
+        />
+      )}
     </NavigationContainer>
   );
 }
