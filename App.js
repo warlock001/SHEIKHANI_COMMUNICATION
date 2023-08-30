@@ -9,6 +9,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 //👇🏻 app screens
 import Login from "./screens/Login";
@@ -29,7 +30,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "./utils/styles";
 import Home from "./screens/Home";
-import Profile from "./screens/AccountSettings";
+import Profile from "./screens/Profile";
 import Announcements from "./screens/Announcements";
 import { SplashScreen } from "expo-splash-screen";
 import SplashScreenComponent from "./component/SplashScreenComponent";
@@ -134,13 +135,25 @@ function MyTabBar({ state, descriptors, navigation }) {
 function HomeTabs() {
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false }}
+      options={{ headerShown: false }}
       tabBar={(props) => <MyTabBar {...props} />}
     >
-      <Tab.Screen name="Workspace" component={OnBoarding} />
+      <Tab.Screen
+        name="Workspace"
+        component={Chat}
+        options={{ headerShown: false }}
+      />
       {/* <Tab.Screen name="Groups" component={Chat} /> */}
-      <Tab.Screen name="Chats" component={Chat} />
-      <Tab.Screen name="My Account" component={Profile} />
+      <Tab.Screen
+        name="Chats"
+        component={Chat}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="My Account"
+        component={Profile}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 }
@@ -221,12 +234,36 @@ export default function App() {
     <NavigationContainer>
       {appReady ? (
         <Stack.Navigator>
-          <Stack.Screen name="OnBoarding" component={OnBoarding} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Home" component={HomeTabs} />
-          <Stack.Screen name="Messaging" component={Messaging} />
-          <Stack.Screen name="Announcements" component={Announcements} />
-          <Stack.Screen name="AccountSettings" component={AccountSettings} />
+          <Stack.Screen
+            name="OnBoarding"
+            component={OnBoarding}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={HomeTabs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Messaging"
+            component={Messaging}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Announcements"
+            component={Announcements}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AccountSettings"
+            component={AccountSettings}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       ) : (
         <SplashScreenComponent

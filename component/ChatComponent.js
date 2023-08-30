@@ -39,7 +39,7 @@ const ChatComponent = ({ item, username }) => {
             height: "100%",
             borderRadius: 100,
           }}
-          source={require("../images/ProfileDemo.jpg")}
+          source={require("../images/myaccount.png")}
         />
       </View>
       <View style={styles.crightContainer}>

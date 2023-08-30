@@ -60,7 +60,7 @@ const Profile = () => {
       <View
         style={{
           zIndex: -1,
-          height: "35%",
+          height: "30%",
           backgroundColor: "#1f2067",
         }}
       >
@@ -112,112 +112,123 @@ const Profile = () => {
               fontSize: 23,
             }}
           >
-            Bruce Willis
+            {profileUsername}
           </Text>
           <Text style={{ fontSize: 16, marginBottom: 45, color: "#8F8F8F" }}>
             brucenelson@yourcompany.com
           </Text>
           <View
             style={{
-              flexDirection: "row",
-              width: "80%",
-              //   paddingHorizontal: "21%",
-              justifyContent: "space-between",
+              width: "100%",
               alignItems: "center",
-              paddingVertical: 14,
-              flexDirection: "row",
-              //   backgroundColor: "#FAE6E7",
-              borderRadius: 5,
+              height: "auto",
+              justifyContent: "space-around",
+              flexDirection: "column",
             }}
           >
-            <View
+            <Pressable
+              onPress={() => navigation.navigate("AccountSettings")}
               style={{
                 flexDirection: "row",
-              }}
-            >
-              <Image
-                resizeMode="contain"
-                style={{ width: 25, height: 25, marginLeft: 5 }}
-                source={require("../images/settings.png")}
-              />
-              <Text
-                style={{ fontSize: 16, marginLeft: 10, textAlign: "center" }}
-              >
-                Account Settings
-              </Text>
-            </View>
-            <Image
-              resizeMode="contain"
-              style={{ width: 25, height: 25, marginRight: 5 }}
-              source={require("../images/chevron_right.png")}
-            />
-          </View>
-          {/* ------To uncomment when we build the Announcements section-------- */}
-          {/* <View
-            style={{
-              flexDirection: "row",
-              width: "80%",
-              //   paddingHorizontal: "21%",
-              justifyContent: "space-between",
-              alignItems: "center",
-              paddingVertical: 14,
-              flexDirection: "row",
-              //   backgroundColor: "#FAE6E7",
-              borderRadius: 5,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-              }}
-            >
-              <Image
-                resizeMode="contain"
-                style={{ width: 23, height: 23, marginLeft: 7 }}
-                source={require("../images/bookmark.png")}
-              />
-              <Text
-                style={{ fontSize: 16, marginLeft: 10, textAlign: "center" }}
-              >
-                Company Announcements
-              </Text>
-            </View>
-            <Image
-              resizeMode="contain"
-              style={{ width: 25, height: 25, marginRight: 5 }}
-              source={require("../images/chevron_right.png")}
-            />
-          </View> */}
-          <Pressable onPress={handleLogout}>
-            <View
-              style={{
-                paddingHorizontal: "33%",
-                justifyContent: "center",
+                width: "80%",
+                //   paddingHorizontal: "21%",
+                justifyContent: "space-between",
                 alignItems: "center",
                 paddingVertical: 14,
                 flexDirection: "row",
-                marginTop: "30%",
-                backgroundColor: "#FAE6E7",
+                //   backgroundColor: "#FAE6E7",
                 borderRadius: 5,
               }}
             >
-              <Image
-                resizeMode="contain"
-                style={{ width: 25, height: 25 }}
-                source={require("../images/logout.png")}
-              />
-              <Text
+              <View
                 style={{
-                  color: "#CF0210",
-                  fontSize: 16,
-                  fontWeight: "500",
-                  marginLeft: 10,
+                  flexDirection: "row",
                 }}
               >
-                Logout
-              </Text>
-            </View>
-          </Pressable>
+                <Image
+                  resizeMode="contain"
+                  style={{ width: 25, height: 25, marginLeft: 5 }}
+                  source={require("../images/settings.png")}
+                />
+                <Text
+                  style={{ fontSize: 16, marginLeft: 10, textAlign: "center" }}
+                >
+                  Account Settings
+                </Text>
+              </View>
+              <Image
+                resizeMode="contain"
+                style={{ width: 16, height: 16, marginRight: 5 }}
+                source={require("../images/chevron_right.png")}
+              />
+            </Pressable>
+            {/* ------To uncomment when we build the Announcements section-------- */}
+            {/* <View
+              style={{
+                flexDirection: "row",
+                width: "80%",
+                //   paddingHorizontal: "21%",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingVertical: 14,
+                flexDirection: "row",
+                //   backgroundColor: "#FAE6E7",
+                borderRadius: 5,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <Image
+                  resizeMode="contain"
+                  style={{ width: 23, height: 23, marginLeft: 7 }}
+                  source={require("../images/bookmark.png")}
+                />
+                <Text
+                  style={{ fontSize: 16, marginLeft: 10, textAlign: "center" }}
+                >
+                  Company Announcements
+                </Text>
+              </View>
+              <Image
+                resizeMode="contain"
+                style={{ width: 16, height: 16, marginRight: 5 }}
+                source={require("../images/chevron_right.png")}
+              />
+            </View> */}
+            <Pressable onPress={handleLogout}>
+              <View
+                style={{
+                  paddingHorizontal: "33%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingVertical: 14,
+                  flexDirection: "row",
+                  marginTop: "30%",
+                  backgroundColor: "#FAE6E7",
+                  borderRadius: 5,
+                }}
+              >
+                <Image
+                  resizeMode="contain"
+                  style={{ width: 25, height: 25 }}
+                  source={require("../images/logout.png")}
+                />
+                <Text
+                  style={{
+                    color: "#CF0210",
+                    fontSize: 16,
+                    fontWeight: "500",
+                    marginLeft: 10,
+                  }}
+                >
+                  Logout
+                </Text>
+              </View>
+            </Pressable>
+          </View>
         </View>
       </View>
     </SafeAreaView>

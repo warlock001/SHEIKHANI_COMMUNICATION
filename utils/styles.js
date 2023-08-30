@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#F7F7F7",
     flex: 1,
     padding: 24,
-    paddingTop: 25,
+    paddingTop: 50,
     position: "relative",
   },
   chatheading: {
@@ -209,5 +209,22 @@ export const styles = StyleSheet.create({
   },
   optionBox: {
     marginTop: 33,
+  },
+  modalContainerImage: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+  },
+  modalCloseButtonImage: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 1,
+  },
+  modalImage: {
+    width: 390,
+    height: 390,
+    borderRadius: 10,
   },
 });
