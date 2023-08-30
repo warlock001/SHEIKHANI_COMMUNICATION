@@ -106,7 +106,7 @@ export default function SignIn({ navigation }) {
             style={{ width: "100%", height: 250 }}
           >
             <LinearGradient
-              colors={["#CF333900", "#CF3339"]}
+              colors={["#CF333900", "#000000"]}
               style={styles.gradientStyle}
               start={{ x: 0.5, y: 0.5 }}
               end={{ x: 0.5, y: 1.5 }}
@@ -115,7 +115,7 @@ export default function SignIn({ navigation }) {
               <View style={styles.textView}>
                 <Text style={styles.textStyle}>Sign In</Text>
                 <Text style={[styles.textStyle, { paddingBottom: 20 }]}>
-                  To Account
+                  To Your Account
                 </Text>
                 <Text style={styles.textStyle2}>
                   Sign with username or email and password to use your account.
@@ -213,7 +213,7 @@ export default function SignIn({ navigation }) {
                   <Text
                     style={{ fontSize: 14, fontWeight: "500", paddingRight: 5 }}
                   >
-                    Don’t have account?
+                    Don’t have an Account?
                   </Text>
                   <TouchableOpacity
                     onPress={() => navigation.navigate("Register")}
@@ -221,7 +221,7 @@ export default function SignIn({ navigation }) {
                     <Text
                       style={{
                         fontSize: 14,
-                        color: "#CF3339",
+                        color: "#1F2067",
                         fontWeight: "bold",
                         textDecorationLine: "underline",
                       }}
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#CF3339",
+    backgroundColor: "#1F2067",
     marginBottom: 15,
   },
 });

@@ -11,7 +11,7 @@ export default function MessageComponent({ item, user }) {
       <View
         style={
           status
-            ? styles.mmessageWrapper
+            ? [styles.mmessageWrapper]
             : [styles.mmessageWrapper, { alignItems: "flex-end" }]
         }
       >
@@ -21,7 +21,7 @@ export default function MessageComponent({ item, user }) {
               name="person-circle-outline"
               size={30}
               color="black"
-              style={styles.mavatar}
+              style={[styles.mavatar, { marginTop: "auto" }]}
             />
           ) : (
             ""
@@ -30,8 +30,11 @@ export default function MessageComponent({ item, user }) {
           <View
             style={
               status
-                ? styles.mmessage
-                : [styles.mmessage, { backgroundColor: "#1F2067" }]
+                ? [styles.mmessage, { borderBottomRightRadius: 10 }]
+                : [
+                    styles.mmessage,
+                    { backgroundColor: "#1F2067", borderBottomLeftRadius: 10 },
+                  ]
             }
           >
             <Text style={status ? [{ color: "#000" }] : [{ color: "#FFF" }]}>
@@ -72,7 +75,7 @@ export default function MessageComponent({ item, user }) {
               name="person-circle-outline"
               size={30}
               color="black"
-              style={styles.mavatar}
+              style={(styles.mavatar2, [, { marginTop: "auto" }])}
             />
           )}
         </View>

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   View,
   TextInput,
@@ -11,6 +11,9 @@ import socket from "../utils/socket";
 import MessageComponent from "../component/MessageComponent";
 import { styles } from "../utils/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+let flatlistRef;
+let textInputRef; // Define the ref
 
 const Messaging = ({ route, navigation }) => {
   const [user, setUser] = useState("");
@@ -42,13 +45,14 @@ const Messaging = ({ route, navigation }) => {
         ? `0${new Date().getMinutes()}`
         : `${new Date().getMinutes()}`;
 
-    if (user) {
+    if (user && message) {
       socket.emit("newMessage", {
         message,
         room_id: id,
         user,
         timestamp: { hour, mins },
       });
+      textInputRef.clear(); // Clear the TextInput field
     } else {
       // console.log("first")
     }
@@ -76,6 +80,7 @@ const Messaging = ({ route, navigation }) => {
             "@roomMessages",
             JSON.stringify(roomChats)
           );
+
           // console.log("four")
         } else {
           // console.log("five")
@@ -114,11 +119,17 @@ const Messaging = ({ route, navigation }) => {
       >
         {chatMessages[0] ? (
           <FlatList
+            ref={(ref) => {
+              flatlistRef = ref;
+            }}
             data={chatMessages}
             renderItem={({ item }) => (
               <MessageComponent item={item} user={user} />
             )}
             keyExtractor={(item) => item.id}
+            onContentSizeChange={() =>
+              flatlistRef.scrollToEnd({ animated: true })
+            }
           />
         ) : (
           ""
@@ -127,8 +138,12 @@ const Messaging = ({ route, navigation }) => {
 
       <View style={styles.messaginginputContainer}>
         <TextInput
+          ref={(inputRef) => {
+            textInputRef = inputRef;
+          }}
           style={styles.messaginginput}
           onChangeText={(value) => setMessage(value)}
+          placeholder="Write Message..."
         />
         <Pressable
           //   style={styles.messagingbuttonContainer}

@@ -54,11 +54,11 @@ export default function Chat({ navigation }) {
       <View style={style.item}>
         <Ionicons
           name="person-circle-outline"
-          size={45}
+          size={60}
           color="black"
           style={styles.cavatar}
         />
-        <Text style={styles.title}>{props.title}</Text>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>{props.title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -132,13 +132,13 @@ export default function Chat({ navigation }) {
   const handleCreateGroup = () => setVisible(true);
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <TouchableWithoutFeedback accessible={false}>
       <SafeAreaView style={styles.chatscreen}>
         <View>
-          <Text style={styles.pageHeading}>Welcome to your workspace</Text>
+          <Text style={styles.pageHeading}>All Chats</Text>
           <Text style={styles.pageSubHeading}>
-            Chats moved to workspace are snoozed after your work hours.
-            <Text style={{ fontWeight: "600" }}>Manage work hours</Text>
+            You can check your recent & new chats here
+            {/* <Text style={{ fontWeight: "600" }}>Manage work hours</Text> */}
           </Text>
         </View>
         <View style={{ marginTop: 13 }}>
@@ -155,19 +155,23 @@ export default function Chat({ navigation }) {
               }}
               right={
                 <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity
-                      onPress={() => {
-                        setShowPassword(!showPassword);
-                      }}
-                    >
+                  name={() =>
+                    searchedUsersVisible ? (
+                      <Pressable onPress={Keyboard.dismiss}>
+                        <Image
+                          resizeMode="contain"
+                          style={{ width: 25 }}
+                          source={require("../images/close.png")}
+                        />
+                      </Pressable>
+                    ) : (
                       <Image
                         resizeMode="contain"
                         style={{ width: 25 }}
-                        source={require("../images/filter.png")}
+                        source={require("../images/search.png")}
                       />
-                    </TouchableOpacity>
-                  )}
+                    )
+                  }
                 />
               }
             />
@@ -178,7 +182,7 @@ export default function Chat({ navigation }) {
               { display: searchedUsersVisible ? "flex" : "none" },
             ]}
           >
-            <Text style={{ marginBottom: 10 }}>Search Users</Text>
+            {/* <Text style={{ marginBottom: 10 }}>Search Users</Text> */}
             <FlatList
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator={true}
@@ -224,5 +228,6 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 16,
+    paddingLeft: 5,
   },
 });
